@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
+  m_Name: Dot
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Dot
+  portrait: {fileID: 0}
+  fullArt: {fileID: 0}
+  animal: Bull Terrier
+  martialArt: Boxeo
+  role: 0
+  gender: 0
+  life: 550
+  defense: 18
+  damage: 700
+  critMultiplier: 2.2
+  luck: 45
+  agility: 650
+  evasion: 20
+  push: 150
+  stamina: 680
+  ultiCondition: Vida baja + Stamina baja simultaneamente
+  ultiEffect: Recupera Stamina para rafaga final
+  passiveName: Instinto asesino
+  passiveEffect: "Rival bajo 20% vida \u2014 +15% Dano"
+  weaponSlot: {fileID: 0}
+  protectionSlot: {fileID: 0}
+  accessorySlot: {fileID: 0}
+  consumableSlot: {fileID: 0}

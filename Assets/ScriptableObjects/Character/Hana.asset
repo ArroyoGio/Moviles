@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
+  m_Name: Hana
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Hana
+  portrait: {fileID: 0}
+  fullArt: {fileID: 0}
+  animal: Osos Japones
+  martialArt: Sumo
+  role: 1
+  gender: 0
+  life: 950
+  defense: 40
+  damage: 480
+  critMultiplier: 1.4
+  luck: 15
+  agility: 300
+  evasion: 10
+  push: 500
+  stamina: 750
+  ultiCondition: Recibe 3 golpes consecutivos sin responder
+  ultiEffect: Palmada con stun fuerte + Empuje
+  passiveName: Tenacidad
+  passiveEffect: "Bajo 20% vida \u2014 reduce dano recibido 15% temporalmente"
+  weaponSlot: {fileID: 0}
+  protectionSlot: {fileID: 0}
+  accessorySlot: {fileID: 0}
+  consumableSlot: {fileID: 0}

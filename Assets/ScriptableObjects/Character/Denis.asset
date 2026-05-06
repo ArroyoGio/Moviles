@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
+  m_Name: Denis
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Denis
+  portrait: {fileID: 0}
+  fullArt: {fileID: 0}
+  animal: T-Rex
+  martialArt: Taekwondo
+  role: 0
+  gender: 2
+  life: 720
+  defense: 8
+  damage: 680
+  critMultiplier: 1.8
+  luck: 55
+  agility: 520
+  evasion: 25
+  push: 650
+  stamina: 620
+  ultiCondition: Vida propia baja del 20%
+  ultiEffect: Cabezazo masivo + stun propio breve
+  passiveName: Golpe de suerte
+  passiveEffect: "Tras evadir \u2014 +20% prob. critico siguiente ataque"
+  weaponSlot: {fileID: 0}
+  protectionSlot: {fileID: 0}
+  accessorySlot: {fileID: 0}
+  consumableSlot: {fileID: 0}
