@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
+  m_Name: Ursula
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Ursula
+  portrait: {fileID: 0}
+  fullArt: {fileID: 0}
+  combatPrefab: {fileID: 0}
+  animal: Oso Polar
+  martialArt: Sambo
+  role: 2
+  gender: 0
+  life: 700
+  defense: 0.28
+  damage: 350
+  critMultiplier: 2.1
+  luck: 0.2
+  agility: 280
+  evasion: 0.1
+  push: 300
+  stamina: 680
+  attackRange: 1.2
+  ultiCondition: "Abrazo de Oso \u2014 Se activa al alcanzar e inmovilizar a su objetivo
+    por primera vez."
+  ultiEffect: 'Aplasta al rival con dano
+
+    decente y stun leve, inmovilizandolo
+    completamente por unos segundos.'
+  passiveName: Tenacidad
+  passiveEffect: Al bajar del 20% de vida, reduce el dano recibido un 15% temporalmente

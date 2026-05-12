@@ -15,24 +15,22 @@ MonoBehaviour:
   characterName: Denis
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
+  combatPrefab: {fileID: 0}
   animal: T-Rex
   martialArt: Taekwondo
   role: 0
   gender: 2
   life: 720
-  defense: 8
+  defense: 0.8
   damage: 680
   critMultiplier: 1.8
-  luck: 55
+  luck: 0.55
   agility: 520
-  evasion: 25
+  evasion: 0.25
   push: 650
   stamina: 620
+  attackRange: 1.6
   ultiCondition: Vida propia baja del 20%
   ultiEffect: Cabezazo masivo + stun propio breve
   passiveName: Golpe de suerte
   passiveEffect: "Tras evadir \u2014 +20% prob. critico siguiente ataque"
-  weaponSlot: {fileID: 0}
-  protectionSlot: {fileID: 0}
-  accessorySlot: {fileID: 0}
-  consumableSlot: {fileID: 0}

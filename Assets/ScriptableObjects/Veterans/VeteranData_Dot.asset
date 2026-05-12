@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b7a4e053706b4459bfcbde5970c5a9, type: 3}
+  m_Name: VeteranData_Dot
+  m_EditorClassIdentifier: Assembly-CSharp::VeteranData
+  baseData: {fileID: 11400000, guid: a56fb7d3b4652cf418c0319d06597ecf, type: 2}
+  veteranId: 
+  life: 550
+  defense: 0.18
+  damage: 700
+  critMultiplier: 2.2
+  luck: 0.45
+  agility: 650
+  evasion: 0.2
+  push: 150
+  stamina: 680
+  passiveName: Instinto asesino
+  passiveEffect: ' Al quedar el rival bajo 20% de vida, Dot gana +15% de Dano automaticamente'
+  weaponSlot: {fileID: 11400000, guid: a8d77f2611e21864496747c189b88e88, type: 2}
+  protectionSlot: {fileID: 11400000, guid: f33c39323a0c2ed48ae64d0564587a24, type: 2}
+  accessorySlot: {fileID: 11400000, guid: 299a9ec744ccf344faa69dbf7017ac5b, type: 2}
+  consumableSlot: {fileID: 11400000, guid: 0841e607d30b7a84ea10346c43473259, type: 2}
+  currentLife: 0
+  currentStamina: 0
+  isKO: 0

@@ -12,31 +12,32 @@ public class CharacterCardUI : MonoBehaviour
     public TMP_Text statsText;
     public Image roleTagImage;
 
-    private CharacterData characterData;
-
     public Color[] roleColors = new Color[]
     {
-        new Color(0.91f, 0f, 0.11f),    // DPS - rojo
-        new Color(0f, 0.34f, 1f),        // Tank - azul
-        new Color(0.55f, 0f, 1f),        // Control - morado
-        new Color(0f, 0.77f, 0.31f),     // Support - verde
-        new Color(1f, 0.42f, 0f)         // Healer - naranja
+        new Color(0.91f, 0f,   0.11f),
+        new Color(0f,   0.34f, 1f),
+        new Color(0.55f, 0f,   1f),
+        new Color(0f,   0.77f, 0.31f),
+        new Color(1f,   0.42f, 0f)
     };
 
-    public void Setup(CharacterData data)
+    public void SetupVeteran(VeteranData veterano)
     {
-        characterData = data;
+        CharacterData data = veterano.baseData;
+
         if (data.portrait != null)
             portrait.sprite = data.portrait;
+
         nameText.text = data.characterName;
         martialArtText.text = data.martialArt;
         roleText.text = data.role.ToString();
-        statsText.text = $"HP:{data.life}  DMG:{data.damage}";
+        statsText.text = $"HP:{veterano.life}  DMG:{veterano.damage}";
         roleTagImage.color = roleColors[(int)data.role];
 
+        GetComponent<Button>().onClick.RemoveAllListeners();
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            CharacterInventoryManager.selectedCharacter = data;
+            CharacterInventoryManager.selectedVeteran = veterano;
             SceneManager.LoadScene("CharacterDetail");
         });
     }

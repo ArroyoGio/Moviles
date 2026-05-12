@@ -29,48 +29,54 @@ public class CharacterDetailUI : MonoBehaviour
 
     public Color[] roleColors = new Color[]
     {
-        new Color(0.91f, 0f, 0.11f),
-        new Color(0f, 0.34f, 1f),
-        new Color(0.55f, 0f, 1f),
-        new Color(0f, 0.77f, 0.31f),
-        new Color(1f, 0.42f, 0f)
+        new Color(0.91f, 0f,   0.11f),
+        new Color(0f,   0.34f, 1f),
+        new Color(0.55f, 0f,   1f),
+        new Color(0f,   0.77f, 0.31f),
+        new Color(1f,   0.42f, 0f)
     };
 
-    CharacterData character;
+    VeteranData veterano;
 
     void Start()
     {
-        character = CharacterInventoryManager.selectedCharacter;
-        if (character == null)
+        veterano = CharacterInventoryManager.selectedVeteran;
+
+        if (veterano == null || veterano.baseData == null)
         {
             SceneManager.LoadScene("CharacterInventory");
             return;
         }
+
         LoadData();
     }
 
-    public void LoadData()
+    void LoadData()
     {
-        if (character.fullArt != null)
-            fullArt.sprite = character.fullArt;
+        CharacterData data = veterano.baseData;
 
-        nameText.text = character.characterName;
-        roleText.text = character.role.ToString();
-        martialArtText.text = character.martialArt;
-        roleTagImage.color = roleColors[(int)character.role];
+        if (data.fullArt != null)
+            fullArt.sprite = data.fullArt;
 
-        lifeText.text = $"HP: {character.life}";
-        damageText.text = $"DMG: {character.damage}";
-        defenseText.text = $"DEF: {character.defense * 100:F0}%";
-        agilityText.text = $"AGIL: {character.agility}";
-        luckText.text = $"SRT: {character.luck * 100:F0}%";
-        evasionText.text = $"EVA: {character.evasion * 100:F0}%";
-        staminaText.text = $"STM: {character.stamina}";
-        pushText.text = $"EMP: {character.push}";
-        critText.text = $"CRIT: {character.critMultiplier}x";
+        nameText.text = data.characterName;
+        roleText.text = data.role.ToString();
+        martialArtText.text = data.martialArt;
+        roleTagImage.color = roleColors[(int)data.role];
 
-        ultiText.text = $"Ulti\n{character.ultiCondition}\n{character.ultiEffect}";
-        passiveText.text = $"Pasiva — {character.passiveName}\n{character.passiveEffect}";
+        // Stats finales del veterano (post entrenamiento)
+        lifeText.text = $"HP: {veterano.life}";
+        damageText.text = $"DMG: {veterano.damage}";
+        defenseText.text = $"DEF: {veterano.defense * 100:F0}%";
+        agilityText.text = $"AGIL: {veterano.agility}";
+        luckText.text = $"SRT: {veterano.luck * 100:F0}%";
+        evasionText.text = $"EVA: {veterano.evasion * 100:F0}%";
+        staminaText.text = $"STM: {veterano.stamina}";
+        pushText.text = $"EMP: {veterano.push}";
+        critText.text = $"CRIT: {veterano.critMultiplier}x";
+
+        // Habilidades vienen del base (nunca cambian)
+        ultiText.text = $"Ulti\n{data.ultiCondition}\n{data.ultiEffect}";
+        passiveText.text = $"Pasiva — {veterano.passiveName}\n{veterano.passiveEffect}";
     }
 
     public void GoBack()

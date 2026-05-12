@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
+  m_Name: Xiao
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Xiao
+  portrait: {fileID: 0}
+  fullArt: {fileID: 0}
+  combatPrefab: {fileID: 0}
+  animal: Leon
+  martialArt: Puno Borracho
+  role: 4
+  gender: 0
+  life: 480
+  defense: 0.22
+  damage: 320
+  critMultiplier: 1.6
+  luck: 0.4
+  agility: 550
+  evasion: 0.35
+  push: 200
+  stamina: 600
+  attackRange: 1.4
+  ultiCondition: "Rugido \u2014 Se activa cuando un aliado recibe un critico."
+  ultiEffect: 'Ese aliado recibe un escudo que repele el proximo ataque
+
+    sin
+    importar el dano.'
+  passiveName: Segundo aire
+  passiveEffect: Al entrar en zona de riesgo de Stamina por primera vez, la recupera
+    un 20% instantaneamente.

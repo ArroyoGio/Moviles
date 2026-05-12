@@ -15,24 +15,22 @@ MonoBehaviour:
   characterName: Dot
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
+  combatPrefab: {fileID: 1133771694791697922, guid: d078c8370580c554885491521f29c164, type: 3}
   animal: Bull Terrier
   martialArt: Boxeo
   role: 0
   gender: 0
   life: 550
-  defense: 18
+  defense: 0.18
   damage: 700
   critMultiplier: 2.2
-  luck: 45
+  luck: 0.45
   agility: 650
-  evasion: 20
+  evasion: 0.2
   push: 150
   stamina: 680
+  attackRange: 1.4
   ultiCondition: Vida baja + Stamina baja simultaneamente
   ultiEffect: Recupera Stamina para rafaga final
   passiveName: Instinto asesino
   passiveEffect: "Rival bajo 20% vida \u2014 +15% Dano"
-  weaponSlot: {fileID: 0}
-  protectionSlot: {fileID: 0}
-  accessorySlot: {fileID: 0}
-  consumableSlot: {fileID: 0}

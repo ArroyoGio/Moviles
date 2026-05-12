@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670021e5b9efa9a4ba1e9655e7689246, type: 3}
   m_Name: PunoAmericano_Basic
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Puno Americano Sport
+  itemName: Puno Americano Basic
   icon: {fileID: 0}
   description: "Refuerzo met\xE1lico en los nudillos. Aumenta el da\xF1o de golpe."
   slot: 0
-  rarity: 1
-  bonusDamage: 7
+  rarity: 0
+  bonusDamage: 4
   bonusLife: 5
   bonusAgility: 0
   bonusStamina: 0
   bonusDefense: 0
   bonusEvasion: 0
-  bonusCrit: 0.08
+  bonusCrit: 0.05
   eliteEffect: 

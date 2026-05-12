@@ -15,24 +15,22 @@ MonoBehaviour:
   characterName: Dakota
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
+  combatPrefab: {fileID: 0}
   animal: Bisonte
   martialArt: Wrestling
   role: 1
   gender: 0
   life: 850
-  defense: 30
+  defense: 0.3
   damage: 450
   critMultiplier: 2.4
-  luck: 25
+  luck: 0.25
   agility: 480
-  evasion: 15
+  evasion: 0.15
   push: 750
   stamina: 700
+  attackRange: 1.2
   ultiCondition: Un aliado baja del 25% de vida
   ultiEffect: Carga hacia el rival, stun leve
   passiveName: Impacto brutal
   passiveEffect: "Golpes con Empuje \u2014 rival -10% Agilidad por 2 seg"
-  weaponSlot: {fileID: 0}
-  protectionSlot: {fileID: 0}
-  accessorySlot: {fileID: 0}
-  consumableSlot: {fileID: 0}

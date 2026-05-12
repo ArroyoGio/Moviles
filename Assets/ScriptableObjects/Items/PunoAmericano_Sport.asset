@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670021e5b9efa9a4ba1e9655e7689246, type: 3}
   m_Name: PunoAmericano_Sport
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: 
+  itemName: Puno Americano Spor t
   icon: {fileID: 0}
   description: 
   slot: 0
-  rarity: 0
-  bonusDamage: 0
+  rarity: 1
+  bonusDamage: 7
   bonusLife: 0
   bonusAgility: 0
   bonusStamina: 0
   bonusDefense: 0
   bonusEvasion: 0
-  bonusCrit: 0
+  bonusCrit: 0.08
   eliteEffect: 

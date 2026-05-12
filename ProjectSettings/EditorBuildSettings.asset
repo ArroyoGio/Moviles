@@ -6,11 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: e918b9f9087b0294194e087755b19e4b
+  - enabled: 1
     path: Assets/Scenes/CharacterInventory.unity
     guid: cc8dece7bbb3dab4f93da809b599417d
   - enabled: 1
     path: Assets/Scenes/CharacterDetail.unity
     guid: 9aaea2fb52bc1aa46a5c58d2cca7c4a1
+  - enabled: 1
+    path: Assets/Scenes/TeamBuilder.unity
+    guid: d603ba77beaac7a488efcda4d7b4ecdc
+  - enabled: 1
+    path: Assets/Scenes/Store.unity
+    guid: f88713f9ed07c734aa6e6cce13885808
+  - enabled: 1
+    path: Assets/Scenes/Combat.unity
+    guid: b0af7a8e466eb504b88c29b6895a9a17
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -15,24 +15,22 @@ MonoBehaviour:
   characterName: Caio
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
+  combatPrefab: {fileID: 0}
   animal: Anaconda
   martialArt: BJJ
   role: 2
   gender: 1
   life: 500
-  defense: 15
+  defense: 0.15
   damage: 400
   critMultiplier: 1.6
-  luck: 30
+  luck: 0.3
   agility: 850
-  evasion: 60
+  evasion: 0.6
   push: 200
   stamina: 650
+  attackRange: 1.2
   ultiCondition: Rival supera 5 golpes sin que Caio reciba dano
   ultiEffect: Sus fans debuffean Dano y Agilidad rival
   passiveName: Paso fantasma
   passiveEffect: "Stamina completa \u2014 +10% Agilidad por 3 seg"
-  weaponSlot: {fileID: 0}
-  protectionSlot: {fileID: 0}
-  accessorySlot: {fileID: 0}
-  consumableSlot: {fileID: 0}

@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
+  m_Name: Omer
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
+  characterName: Omer
+  portrait: {fileID: 0}
+  fullArt: {fileID: 0}
+  combatPrefab: {fileID: 0}
+  animal: Caracal
+  martialArt: Krav Maga
+  role: 3
+  gender: 1
+  life: 420
+  defense: 0.2
+  damage: 300
+  critMultiplier: 1.5
+  luck: 0.35
+  agility: 450
+  evasion: 0.4
+  push: 150
+  stamina: 500
+  attackRange: 1.4
+  ultiCondition: "Palabras de Aliento \u2014 Se activa en el ring cuando su vida
+    baja del 25%. "
+  ultiEffect: 'Elimina todos los debuffs activos y bufea
+
+    brevemente a un miembro
+    del equipo dandole energia extra'
+  passiveName: Esquiva refleja
+  passiveEffect: Al evadir 2 golpes consecutivos, contraataca automaticamente con
+    un golpe debil

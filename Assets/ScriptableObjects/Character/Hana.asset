@@ -15,24 +15,22 @@ MonoBehaviour:
   characterName: Hana
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
+  combatPrefab: {fileID: 2357760881947806272, guid: e8453aaa9525e0945952ac5d6de39f8c, type: 3}
   animal: Osos Japones
   martialArt: Sumo
   role: 1
   gender: 0
   life: 950
-  defense: 40
+  defense: 0.4
   damage: 480
   critMultiplier: 1.4
-  luck: 15
+  luck: 0.15
   agility: 300
-  evasion: 10
+  evasion: 0.1
   push: 500
   stamina: 750
+  attackRange: 1.2
   ultiCondition: Recibe 3 golpes consecutivos sin responder
   ultiEffect: Palmada con stun fuerte + Empuje
   passiveName: Tenacidad
   passiveEffect: "Bajo 20% vida \u2014 reduce dano recibido 15% temporalmente"
-  weaponSlot: {fileID: 0}
-  protectionSlot: {fileID: 0}
-  accessorySlot: {fileID: 0}
-  consumableSlot: {fileID: 0}

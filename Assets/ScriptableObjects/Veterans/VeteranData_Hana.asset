@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b7a4e053706b4459bfcbde5970c5a9, type: 3}
+  m_Name: VeteranData_Hana
+  m_EditorClassIdentifier: Assembly-CSharp::VeteranData
+  baseData: {fileID: 11400000, guid: 7a2f15b614bcf804eab21ac47b33e56b, type: 2}
+  veteranId: 
+  life: 950
+  defense: 0.4
+  damage: 480
+  critMultiplier: 1.4
+  luck: 0.15
+  agility: 300
+  evasion: 0.1
+  push: 500
+  stamina: 750
+  passiveName: Tenacidad
+  passiveEffect: Al bajar del 20% de vida, reduce el dano recibido un 15% temporalmente.
+  weaponSlot: {fileID: 11400000, guid: 1d7ed0fcc69efa94298e3381246d7d3c, type: 2}
+  protectionSlot: {fileID: 11400000, guid: c4822bc89099c27458f125f2cbeeac8e, type: 2}
+  accessorySlot: {fileID: 11400000, guid: 4c9194f4b39ebca478498aa3a52866a8, type: 2}
+  consumableSlot: {fileID: 11400000, guid: 0841e607d30b7a84ea10346c43473259, type: 2}
+  currentLife: 0
+  currentStamina: 0
+  isKO: 0
