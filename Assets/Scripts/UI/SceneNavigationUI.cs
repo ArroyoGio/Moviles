@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class InventarioToEquipoUI : MonoBehaviour
+public class SceneNavigationUI : MonoBehaviour
 {
     public void IrAArmarEquipo()
     {
@@ -12,5 +12,4 @@ public class InventarioToEquipoUI : MonoBehaviour
     {
         SceneManager.LoadScene("Store");
     }
-
 }

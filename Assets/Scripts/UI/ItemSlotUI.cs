@@ -5,68 +5,68 @@ using System;
 
 public class ItemSlotUI : MonoBehaviour
 {
-    [Header("Referencias UI")]
-    public Image itemIcon;
-    public Image slotBackground;
-    public TMP_Text slotLabel;
-    public TMP_Text itemNameText;
+    public Image iconoItem;
+    public TMP_Text nombreText;
+    public TMP_Text statsText;
+    public Image rarezaTag;
+    public TMP_Text rarezaText;
 
-    // Colores por rareza — igual que los colores de rol en CharacterCardUI
-    private static readonly Color[] rarityColors = new Color[]
-    {
-        new Color(0.55f, 0.55f, 0.55f), // Basic  — gris
-        new Color(0.0f,  0.47f, 1.0f),  // Sport  — azul
-        new Color(0.85f, 0.65f, 0.0f),  // Elite  — dorado
-    };
+    private Button boton;
 
-    private ItemData.ItemSlot tipoSlot;
-    private Action<ItemData.ItemSlot, ItemData> onClickCallback;
-    private ItemData itemActual;
+    public Color colorBasic = Color.gray;
+    public Color colorSport = Color.green;
+    public Color colorElite = Color.yellow;
 
-    public void Setup(ItemData item, ItemData.ItemSlot tipo,
+    public void Setup(ItemData item,
+                      ItemData.ItemSlot tipo,
                       Action<ItemData.ItemSlot, ItemData> callback)
     {
-        tipoSlot = tipo;
-        onClickCallback = callback;
-        itemActual = item;
+        boton = GetComponent<Button>();
 
-        // Etiqueta del slot
-        slotLabel.text = tipo switch
+        nombreText.text = item.itemName;
+
+        string stats = "";
+
+        if (item.bonusDamage > 0)
+            stats += $"+{item.bonusDamage} DMG ";
+
+        if (item.bonusLife > 0)
+            stats += $"+{item.bonusLife} HP ";
+
+        if (item.bonusDefense > 0)
+            stats += $"+{item.bonusDefense * 100:F0}% DEF ";
+
+        if (item.bonusAgility > 0)
+            stats += $"+{item.bonusAgility} AGI ";
+
+        statsText.text = stats;
+
+        if (item.icon != null)
+            iconoItem.sprite = item.icon;
+
+        switch (item.rarity)
         {
-            ItemData.ItemSlot.Weapon => "Arma",
-            ItemData.ItemSlot.Protection => "Protección",
-            ItemData.ItemSlot.Accessory => "Accesorio",
-            ItemData.ItemSlot.Consumable => "Consumible",
-            _ => tipo.ToString()
-        };
+            case ItemData.Rarity.Basic:
+                rarezaTag.color = colorBasic;
+                rarezaText.text = "BASIC";
+                break;
 
-        if (item != null)
-        {
-            // Ícono
-            if (itemIcon != null && item.icon != null)
-                itemIcon.sprite = item.icon;
+            case ItemData.Rarity.Sport:
+                rarezaTag.color = colorSport;
+                rarezaText.text = "SPORT";
+                break;
 
-            // Nombre
-            if (itemNameText != null)
-                itemNameText.text = item.itemName;
-
-            // Color por rareza
-            if (slotBackground != null)
-                slotBackground.color = rarityColors[(int)item.rarity];
+            case ItemData.Rarity.Elite:
+                rarezaTag.color = colorElite;
+                rarezaText.text = "ELITE";
+                break;
         }
-        else
-        {
-            // Slot vacío
-            if (itemNameText != null)
-                itemNameText.text = "Vacío";
-            if (slotBackground != null)
-                slotBackground.color = new Color(0.2f, 0.2f, 0.2f);
-        }
-    }
 
-    // Llama esto desde el Button de Unity (onClick en Inspector)
-    public void OnClick()
-    {
-        onClickCallback?.Invoke(tipoSlot, itemActual);
+        boton.onClick.RemoveAllListeners();
+        boton.onClick.AddListener(() =>
+        {
+            Debug.Log("CLICK " + item.itemName);
+            callback?.Invoke(tipo, item);
+        });
     }
 }

@@ -12,6 +12,7 @@ public class AuthenticationManager : MonoBehaviour
     public TMP_InputField passwordInput;
     public Button loginButton;
     public Button registerButton;
+    public Button guestButton;
     public TMP_Text statusText;
     public GameObject loadingSpinner;
 
@@ -31,6 +32,7 @@ public class AuthenticationManager : MonoBehaviour
 
         loginButton.onClick.AddListener(Login);
         registerButton.onClick.AddListener(Register);
+        guestButton.onClick.AddListener(LoginAnonimo);
 
         // Recordar último usuario
         string savedUser = PlayerPrefs.GetString("last_username", "");
@@ -63,8 +65,20 @@ public class AuthenticationManager : MonoBehaviour
             statusText.text = "¡Bienvenid@! Cargando...";
             statusText.color = colorOK;
 
+            // esto ya lo tienes
             if (EconomyManager.Instance != null)
                 await EconomyManager.Instance.LoadBalances();
+
+            // AGREGA esto después:
+            if (CloudCodeManager.Instance != null)
+            {
+                // Guardar que el jugador entró
+                await CloudCodeManager.Instance.GuardarDatos(0, 0);
+
+                // Leer sus datos guardados
+                var datos = await CloudCodeManager.Instance.LeerDatos();
+                Debug.Log("Datos del jugador cargados");
+            }
 
             UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterInventory");
         }
@@ -116,6 +130,61 @@ public class AuthenticationManager : MonoBehaviour
         }
     }
 
+    async void LoginAnonimo()
+    {
+        SetLoading(true);
+
+        statusText.transform.parent.gameObject.SetActive(true);
+        statusText.text = "Entrando como invitado...";
+        statusText.color = Color.white;
+
+        try
+        {
+            if (AuthenticationService.Instance.IsSignedIn)
+                AuthenticationService.Instance.SignOut();
+
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log(AuthenticationService.Instance.PlayerId);
+
+            statusText.text = "¡Bienvenid@ invitad@!";
+            statusText.color = colorOK;
+
+            if (EconomyManager.Instance != null)
+                await EconomyManager.Instance.LoadBalances();
+            if (CloudCodeManager.Instance != null)
+            {
+                try
+                {
+                    // Pequeña espera para asegurar que el token esté listo
+                    await System.Threading.Tasks.Task.Delay(500);
+
+                    await CloudCodeManager.Instance.GuardarDatos(0, 0);
+                    await CloudCodeManager.Instance.LeerDatos();
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning("Cloud Code opcional falló: " + e.Message);
+                }
+            }
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterInventory");
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterInventory");
+        }
+        catch (AuthenticationException e)
+        {
+            MostrarError($"Error Auth ({e.ErrorCode})");
+        }
+        catch (System.Exception e)
+        {
+            MostrarError("No se pudo iniciar como invitado.");
+            Debug.LogError(e.Message);
+        }
+        finally
+        {
+            SetLoading(false);
+        }
+    }
     bool ValidarCampos()
     {
         ResetBorders();

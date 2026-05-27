@@ -77,13 +77,6 @@ public class ArenaManager : MonoBehaviour
         StartRound(nextRound);
     }
 
-    void ResetFighters()
-    {
-        // Destruye fighters actuales y reinstancia
-        var team = TeamManager.Instance.equipoActual;
-        CombatSystem.Instance.StartMatch1v1(team.activos[0], team.activos[1]);
-    }
-
     void EndMatch()
     {
         bool draw = scores[0] == scores[1];

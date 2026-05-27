@@ -27,16 +27,25 @@ public class CharacterDetailUI : MonoBehaviour
     public TMP_Text ultiText;
     public TMP_Text passiveText;
 
+    [Header("Slots de equipamiento")]
+    public Button btnSlot0;
+    public Button btnSlot1;
+    public Button btnSlot2;
+    public Button btnSlot3;
+
+    [Header("Item Selector")]
+    public ItemSelectorUI itemSelectorUI;
+
     public Color[] roleColors = new Color[]
     {
-        new Color(0.91f, 0f,   0.11f),
-        new Color(0f,   0.34f, 1f),
-        new Color(0.55f, 0f,   1f),
-        new Color(0f,   0.77f, 0.31f),
-        new Color(1f,   0.42f, 0f)
+        new Color(0.91f, 0f, 0.11f),
+        new Color(0f, 0.34f, 1f),
+        new Color(0.55f, 0f, 1f),
+        new Color(0f, 0.77f, 0.31f),
+        new Color(1f, 0.42f, 0f)
     };
 
-    VeteranData veterano;
+    private VeteranData veterano;
 
     void Start()
     {
@@ -48,7 +57,14 @@ public class CharacterDetailUI : MonoBehaviour
             return;
         }
 
+        // limpiar slots al entrar
+        veterano.weaponSlot = null;
+        veterano.protectionSlot = null;
+        veterano.accessorySlot = null;
+        veterano.consumableSlot = null;
+
         LoadData();
+        InicializarSlots();
     }
 
     void LoadData()
@@ -63,7 +79,6 @@ public class CharacterDetailUI : MonoBehaviour
         martialArtText.text = data.martialArt;
         roleTagImage.color = roleColors[(int)data.role];
 
-        // Stats finales del veterano (post entrenamiento)
         lifeText.text = $"HP: {veterano.life}";
         damageText.text = $"DMG: {veterano.damage}";
         defenseText.text = $"DEF: {veterano.defense * 100:F0}%";
@@ -74,9 +89,45 @@ public class CharacterDetailUI : MonoBehaviour
         pushText.text = $"EMP: {veterano.push}";
         critText.text = $"CRIT: {veterano.critMultiplier}x";
 
-        // Habilidades vienen del base (nunca cambian)
         ultiText.text = $"Ulti\n{data.ultiCondition}\n{data.ultiEffect}";
         passiveText.text = $"Pasiva — {veterano.passiveName}\n{veterano.passiveEffect}";
+
+        RefrescarSlots();
+    }
+
+    void InicializarSlots()
+    {
+        btnSlot0.onClick.RemoveAllListeners();
+        btnSlot1.onClick.RemoveAllListeners();
+        btnSlot2.onClick.RemoveAllListeners();
+        btnSlot3.onClick.RemoveAllListeners();
+
+        btnSlot0.onClick.AddListener(() =>
+            itemSelectorUI.Abrir(ItemData.ItemSlot.Weapon, veterano, RefrescarSlots));
+
+        btnSlot1.onClick.AddListener(() =>
+            itemSelectorUI.Abrir(ItemData.ItemSlot.Protection, veterano, RefrescarSlots));
+
+        btnSlot2.onClick.AddListener(() =>
+            itemSelectorUI.Abrir(ItemData.ItemSlot.Accessory, veterano, RefrescarSlots));
+
+        btnSlot3.onClick.AddListener(() =>
+            itemSelectorUI.Abrir(ItemData.ItemSlot.Consumable, veterano, RefrescarSlots));
+    }
+
+    void RefrescarSlots()
+    {
+        btnSlot0.GetComponentInChildren<TMP_Text>().text =
+            veterano.weaponSlot != null ? veterano.weaponSlot.itemName : "Arma";
+
+        btnSlot1.GetComponentInChildren<TMP_Text>().text =
+            veterano.protectionSlot != null ? veterano.protectionSlot.itemName : "Protección";
+
+        btnSlot2.GetComponentInChildren<TMP_Text>().text =
+            veterano.accessorySlot != null ? veterano.accessorySlot.itemName : "Accesorio";
+
+        btnSlot3.GetComponentInChildren<TMP_Text>().text =
+            veterano.consumableSlot != null ? veterano.consumableSlot.itemName : "Consumible";
     }
 
     public void GoBack()
