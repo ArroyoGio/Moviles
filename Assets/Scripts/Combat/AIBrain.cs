@@ -7,6 +7,7 @@ public class AIBrain : MonoBehaviour
     public enum State { Searching, Moving, Attacking, Recovering, Paused }
 
     private State currentState = State.Searching;
+    private State lastState = State.Searching;
     private Fighter target;
     private RoleType role;
     private bool paused = false;
@@ -15,7 +16,6 @@ public class AIBrain : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"AIBrain activo — estado: {currentState} — CombatSystem: {CombatSystem.Instance}");
         if (paused) return;
         CheckReactive();
 
@@ -25,6 +25,13 @@ public class AIBrain : MonoBehaviour
             case State.Moving: Move(); break;
             case State.Attacking: Attack(); break;
             case State.Recovering: Recover(); break;
+        }
+
+        // Log cuando cambia el estado para evitar spam cada frame
+        if (currentState != lastState)
+        {
+            Debug.Log($"AIBrain estado cambiado — {lastState} -> {currentState} — CombatSystem: {CombatSystem.Instance}");
+            lastState = currentState;
         }
     }
 

@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class CombatStarter : MonoBehaviour
 {
+    private bool started = false;
     void Start()
     {
+        if (started) return;
+        started = true;
+
+        Debug.Log($"CombatStarter.Start called on '{gameObject.name}'");
+
         if (TeamManager.Instance == null)
         {
             Debug.LogError("TeamManager not found");

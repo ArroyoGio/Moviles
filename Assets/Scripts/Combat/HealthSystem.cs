@@ -9,7 +9,7 @@ public class HealthSystem : MonoBehaviour
     public float HealthPercent => (float)currentHealth / maxHealth;
     public bool IsDead() => currentHealth <= 0;
 
-    public static event Action<int, float> OnHealthChanged; // (side, percent)
+    public static event Action<int, float> OnHealthChanged;
 
     public void Initialize(int health)
     {
@@ -23,12 +23,14 @@ public class HealthSystem : MonoBehaviour
 
         currentHealth = Mathf.Max(0, currentHealth - amount);
         Debug.Log($"Daño recibido: {amount} — Vida actual: {currentHealth}/{maxHealth}");
-        OnHealthChanged?.Invoke(GetComponent<Fighter>().side, HealthPercent);
+
+        var fighter = GetComponent<Fighter>();
+        OnHealthChanged?.Invoke(fighter.side, HealthPercent);
 
         if (currentHealth <= 0)
         {
             Debug.Log("KO notificado");
-            CombatSystem.Instance.NotifyKO(GetComponent<Fighter>());
+            CombatSystem.Instance.NotifyKO(fighter);
         }
     }
 }

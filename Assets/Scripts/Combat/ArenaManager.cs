@@ -18,6 +18,18 @@ public class ArenaManager : MonoBehaviour
 
     void Awake() => Instance = this;
 
+    void Start()
+    {
+        // Evita duplicados de ArenaManager al cargar escenas
+        if (Instance != null && Instance != this)
+        {
+            Debug.Log($"ArenaManager: instancia duplicada detectada en '{gameObject.name}', destruyendo la nueva.");
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     public void StartRound(int number)
     {
         currentRound = number;
