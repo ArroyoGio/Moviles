@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 8264455328705095992}
   - component: {fileID: 959613647326604454}
   - component: {fileID: 5889648613603154899}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7371379058cdcc347b345975b055e810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackSystem
-  rangoAtaque: 0
+  attackRange: 0
 --- !u!114 &1281193797913894063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,5 +248,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ed0833b2b007c40ad782f2780018c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Combatiente
-  datos: {fileID: 11400000, guid: c07e60aa55328dc449daea9e5080c8b9, type: 2}
-  lado: 0
+  data: {fileID: 0}
+  side: 0

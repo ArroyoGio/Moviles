@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 5688207550769477978}
   - component: {fileID: 5939930889441780616}
   - component: {fileID: 8440831206435039573}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7371379058cdcc347b345975b055e810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackSystem
-  rangoAtaque: 0
+  attackRange: 0
 --- !u!114 &7700606345493604736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,5 +248,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ed0833b2b007c40ad782f2780018c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Combatiente
-  datos: {fileID: 11400000, guid: c946cc91a80e9544e833cc724c56b968, type: 2}
-  lado: 0
+  data: {fileID: 0}
+  side: 0

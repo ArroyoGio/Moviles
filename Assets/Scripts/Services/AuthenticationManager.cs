@@ -4,6 +4,7 @@ using TMPro;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
 using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 public class AuthenticationManager : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class AuthenticationManager : MonoBehaviour
 
     async void Start()
     {
-        statusText.transform.parent.gameObject.SetActive(false); // oculta StatusPanel al inicio
+        statusText.transform.parent.gameObject.SetActive(false);
 
         await UnityServices.InitializeAsync();
 
@@ -34,7 +35,6 @@ public class AuthenticationManager : MonoBehaviour
         registerButton.onClick.AddListener(Register);
         guestButton.onClick.AddListener(LoginAnonimo);
 
-        // Recordar último usuario
         string savedUser = PlayerPrefs.GetString("last_username", "");
         if (!string.IsNullOrEmpty(savedUser))
             usernameInput.text = savedUser;
@@ -48,6 +48,7 @@ public class AuthenticationManager : MonoBehaviour
         if (!ValidarCampos()) return;
 
         SetLoading(true);
+        statusText.transform.parent.gameObject.SetActive(true);
         statusText.text = "Iniciando sesión...";
         statusText.color = Color.white;
 
@@ -65,22 +66,17 @@ public class AuthenticationManager : MonoBehaviour
             statusText.text = "¡Bienvenid@! Cargando...";
             statusText.color = colorOK;
 
-            // esto ya lo tienes
             if (EconomyManager.Instance != null)
                 await EconomyManager.Instance.LoadBalances();
 
-            // AGREGA esto después:
             if (CloudCodeManager.Instance != null)
             {
-                // Guardar que el jugador entró
                 await CloudCodeManager.Instance.GuardarDatos(0, 0);
-
-                // Leer sus datos guardados
-                var datos = await CloudCodeManager.Instance.LeerDatos();
+                await CloudCodeManager.Instance.LeerDatos();
                 Debug.Log("Datos del jugador cargados");
             }
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterInventory");
+            SceneManager.LoadScene("MainHub");
         }
         catch (AuthenticationException e)
         {
@@ -102,6 +98,7 @@ public class AuthenticationManager : MonoBehaviour
         if (!ValidarCampos()) return;
 
         SetLoading(true);
+        statusText.transform.parent.gameObject.SetActive(true);
         statusText.text = "Creando cuenta...";
         statusText.color = Color.white;
 
@@ -133,7 +130,6 @@ public class AuthenticationManager : MonoBehaviour
     async void LoginAnonimo()
     {
         SetLoading(true);
-
         statusText.transform.parent.gameObject.SetActive(true);
         statusText.text = "Entrando como invitado...";
         statusText.color = Color.white;
@@ -142,6 +138,7 @@ public class AuthenticationManager : MonoBehaviour
         {
             if (AuthenticationService.Instance.IsSignedIn)
                 AuthenticationService.Instance.SignOut();
+            AuthenticationService.Instance.ClearSessionToken(); 
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             Debug.Log(AuthenticationService.Instance.PlayerId);
@@ -151,13 +148,12 @@ public class AuthenticationManager : MonoBehaviour
 
             if (EconomyManager.Instance != null)
                 await EconomyManager.Instance.LoadBalances();
+
             if (CloudCodeManager.Instance != null)
             {
                 try
                 {
-                    // Pequeña espera para asegurar que el token esté listo
-                    await System.Threading.Tasks.Task.Delay(500);
-
+                    await Task.Delay(500);
                     await CloudCodeManager.Instance.GuardarDatos(0, 0);
                     await CloudCodeManager.Instance.LeerDatos();
                 }
@@ -167,9 +163,7 @@ public class AuthenticationManager : MonoBehaviour
                 }
             }
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterInventory");
-
-            UnityEngine.SceneManagement.SceneManager.LoadScene("CharacterInventory");
+            SceneManager.LoadScene("MainHub");
         }
         catch (AuthenticationException e)
         {
@@ -185,6 +179,7 @@ public class AuthenticationManager : MonoBehaviour
             SetLoading(false);
         }
     }
+
     bool ValidarCampos()
     {
         ResetBorders();
@@ -200,8 +195,7 @@ public class AuthenticationManager : MonoBehaviour
         if (string.IsNullOrWhiteSpace(passwordInput.text) || passwordInput.text.Length < 8)
         {
             SetBorderColor(passwordBorder, colorError);
-            if (!ok == false)
-                MostrarError("La contraseña debe tener al menos 8 caracteres.");
+            MostrarError("La contraseña debe tener al menos 8 caracteres.");
             ok = false;
         }
 
@@ -227,16 +221,19 @@ public class AuthenticationManager : MonoBehaviour
     {
         statusText.text = msg;
         statusText.color = colorError;
-        statusText.transform.parent.gameObject.SetActive(true); // activa StatusPanel
+        statusText.transform.parent.gameObject.SetActive(true);
         SetBorderColor(usernameBorder, colorError);
         SetBorderColor(passwordBorder, colorError);
     }
 
     void SetLoading(bool estado)
     {
-        if (loadingSpinner != null) loadingSpinner.SetActive(estado);
+        if (loadingSpinner != null)
+            loadingSpinner.SetActive(estado);
+
         loginButton.interactable = !estado;
         registerButton.interactable = !estado;
+        guestButton.interactable = !estado;
         usernameInput.interactable = !estado;
         passwordInput.interactable = !estado;
     }

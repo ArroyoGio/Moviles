@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Login.unity
     guid: e918b9f9087b0294194e087755b19e4b
   - enabled: 1
+    path: Assets/Scenes/MainHub.unity
+    guid: 98d9fd7cbf0d7484583956ca6664ce54
+  - enabled: 1
     path: Assets/Scenes/CharacterInventory.unity
     guid: cc8dece7bbb3dab4f93da809b599417d
   - enabled: 1
