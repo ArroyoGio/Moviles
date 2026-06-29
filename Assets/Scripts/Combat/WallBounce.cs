@@ -8,15 +8,18 @@ public class WallBounce : MonoBehaviour
     private const float SHORT_BOUNCE_DUR = 0.3f;  // GDD 4.2
     private const float LONG_BOUNCE_DUR = 0.8f;
     private const float IMMUNITY_DUR = 2.5f;
-    private const float ARENA_LIMIT = 4.5f;  // lÌmite visible en c·mara
+    private const float ARENA_LIMIT = 4.5f;  // l√≠mite visible en c√°mara
 
     public void ApplyPush(Vector2 direction, int pushForce)
     {
-        Vector2 destination = (Vector2)transform.position + direction * pushForce * 0.001f;
+        var movement = GetComponent<MovementSystem>();
+        Vector3 destination = transform.position + (Vector3)(direction * pushForce * 0.001f);
+        if (movement != null)
+            destination = movement.ConstrainPosition(destination);
 
         if (OutOfBounds(destination))
         {
-            // Clamp dentro del octÛgono
+            // Clamp dentro del oct√≥gono
             transform.position = new Vector3(
                 Mathf.Clamp(destination.x, -ARENA_LIMIT, ARENA_LIMIT),
                 Mathf.Clamp(destination.y, -ARENA_LIMIT, ARENA_LIMIT), 0);
@@ -26,7 +29,7 @@ public class WallBounce : MonoBehaviour
         }
         else
         {
-            transform.position = (Vector3)destination;
+            transform.position = destination;
         }
     }
 

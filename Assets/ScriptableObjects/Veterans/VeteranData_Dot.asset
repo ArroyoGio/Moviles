@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VeteranData
   baseData: {fileID: 11400000, guid: a56fb7d3b4652cf418c0319d06597ecf, type: 2}
   veteranId: 
-  life: 550
-  defense: 0.18
-  damage: 700
+  life: 565
+  defense: 0.2
+  damage: 707
   critMultiplier: 2.2
-  luck: 0.45
-  agility: 650
+  luck: 0.53
+  agility: 670
   evasion: 0.2
   push: 150
   stamina: 680
   passiveName: Instinto asesino
-  passiveEffect: ' Al quedar el rival bajo 20% de vida, Dot gana +15% de Dano automaticamente'
-  weaponSlot: {fileID: 11400000, guid: a8d77f2611e21864496747c189b88e88, type: 2}
-  protectionSlot: {fileID: 11400000, guid: f33c39323a0c2ed48ae64d0564587a24, type: 2}
-  accessorySlot: {fileID: 11400000, guid: 299a9ec744ccf344faa69dbf7017ac5b, type: 2}
-  consumableSlot: {fileID: 11400000, guid: 0841e607d30b7a84ea10346c43473259, type: 2}
+  passiveEffect: "Rival bajo 20% vida \u2014 +15% Dano"
+  weaponSlot: {fileID: 0}
+  protectionSlot: {fileID: 0}
+  accessorySlot: {fileID: 0}
+  consumableSlot: {fileID: 0}
   currentLife: 0
   currentStamina: 0
   isKO: 0

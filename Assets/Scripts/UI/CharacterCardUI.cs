@@ -41,4 +41,24 @@ public class CharacterCardUI : MonoBehaviour
             SceneManager.LoadScene("CharacterDetail");
         });
     }
+
+    public void SetupForTeamBuilder(VeteranData veterano, System.Action<VeteranData> onClick)
+    {
+        CharacterData data = veterano.baseData;
+
+        if (data.portrait != null)
+            portrait.sprite = data.portrait;
+
+        nameText.text = data.characterName;
+        martialArtText.text = data.martialArt;
+        roleText.text = data.role.ToString();
+        statsText.text = $"HP:{veterano.life}  DMG:{veterano.damage}";
+        roleTagImage.color = roleColors[(int)data.role];
+
+        GetComponent<Button>().onClick.RemoveAllListeners();
+        GetComponent<Button>().onClick.AddListener(() =>
+        {
+            onClick?.Invoke(veterano);
+        });
+    }
 }

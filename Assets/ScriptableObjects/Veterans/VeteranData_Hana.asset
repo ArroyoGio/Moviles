@@ -25,10 +25,10 @@ MonoBehaviour:
   stamina: 750
   passiveName: Tenacidad
   passiveEffect: Al bajar del 20% de vida, reduce el dano recibido un 15% temporalmente.
-  weaponSlot: {fileID: 11400000, guid: 1d7ed0fcc69efa94298e3381246d7d3c, type: 2}
-  protectionSlot: {fileID: 11400000, guid: c4822bc89099c27458f125f2cbeeac8e, type: 2}
-  accessorySlot: {fileID: 11400000, guid: 4c9194f4b39ebca478498aa3a52866a8, type: 2}
-  consumableSlot: {fileID: 11400000, guid: 0841e607d30b7a84ea10346c43473259, type: 2}
+  weaponSlot: {fileID: 0}
+  protectionSlot: {fileID: 0}
+  accessorySlot: {fileID: 0}
+  consumableSlot: {fileID: 0}
   currentLife: 0
   currentStamina: 0
   isKO: 0

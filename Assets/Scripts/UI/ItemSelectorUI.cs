@@ -18,6 +18,7 @@ public class ItemSelectorUI : MonoBehaviour
     void Start()
     {
         btnCerrar.onClick.AddListener(Cerrar);
+        PrepararPopupVisual();
     }
 
     public void Abrir(ItemData.ItemSlot slot,
@@ -31,7 +32,35 @@ public class ItemSelectorUI : MonoBehaviour
         tituloText.text = "SELECCIONAR " + slot;
 
         CargarItems();
+        transform.SetAsLastSibling();
+        PrepararPopupVisual();
         gameObject.SetActive(true);
+    }
+
+    void PrepararPopupVisual()
+    {
+        var canvas = GetComponent<Canvas>();
+        if (canvas == null)
+            canvas = gameObject.AddComponent<Canvas>();
+
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 500;
+
+        if (GetComponent<GraphicRaycaster>() == null)
+            gameObject.AddComponent<GraphicRaycaster>();
+
+        var rect = GetComponent<RectTransform>();
+        if (rect != null)
+        {
+            rect.anchorMin = new Vector2(0.12f, 0.12f);
+            rect.anchorMax = new Vector2(0.88f, 0.88f);
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+        }
+
+        var image = GetComponent<Image>();
+        if (image != null)
+            image.color = new Color(0.05f, 0.06f, 0.08f, 0.96f);
     }
 
     void CargarItems()

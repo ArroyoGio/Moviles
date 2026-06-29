@@ -57,12 +57,7 @@ public class CharacterDetailUI : MonoBehaviour
             return;
         }
 
-        // limpiar slots al entrar
-        veterano.weaponSlot = null;
-        veterano.protectionSlot = null;
-        veterano.accessorySlot = null;
-        veterano.consumableSlot = null;
-
+        veterano.RecalculateStatsFromBaseAndEquipment();
         LoadData();
         InicializarSlots();
     }
@@ -79,18 +74,10 @@ public class CharacterDetailUI : MonoBehaviour
         martialArtText.text = data.martialArt;
         roleTagImage.color = roleColors[(int)data.role];
 
-        lifeText.text = $"HP: {veterano.life}";
-        damageText.text = $"DMG: {veterano.damage}";
-        defenseText.text = $"DEF: {veterano.defense * 100:F0}%";
-        agilityText.text = $"AGIL: {veterano.agility}";
-        luckText.text = $"SRT: {veterano.luck * 100:F0}%";
-        evasionText.text = $"EVA: {veterano.evasion * 100:F0}%";
-        staminaText.text = $"STM: {veterano.stamina}";
-        pushText.text = $"EMP: {veterano.push}";
-        critText.text = $"CRIT: {veterano.critMultiplier}x";
+        RefrescarStats();
 
         ultiText.text = $"Ulti\n{data.ultiCondition}\n{data.ultiEffect}";
-        passiveText.text = $"Pasiva — {veterano.passiveName}\n{veterano.passiveEffect}";
+        passiveText.text = $"Pasiva - {veterano.passiveName}\n{veterano.passiveEffect}";
 
         RefrescarSlots();
     }
@@ -117,17 +104,51 @@ public class CharacterDetailUI : MonoBehaviour
 
     void RefrescarSlots()
     {
-        btnSlot0.GetComponentInChildren<TMP_Text>().text =
-            veterano.weaponSlot != null ? veterano.weaponSlot.itemName : "Arma";
+        veterano.RecalculateStatsFromBaseAndEquipment();
+        RefrescarStats();
+        ActualizarSlot(btnSlot0, "Weapon", veterano.weaponSlot);
+        ActualizarSlot(btnSlot1, "Protection", veterano.protectionSlot);
+        ActualizarSlot(btnSlot2, "Accessory", veterano.accessorySlot);
+        ActualizarSlot(btnSlot3, "Consumable", veterano.consumableSlot);
+    }
 
-        btnSlot1.GetComponentInChildren<TMP_Text>().text =
-            veterano.protectionSlot != null ? veterano.protectionSlot.itemName : "Protección";
+    void RefrescarStats()
+    {
+        lifeText.text = $"HP: {veterano.life}";
+        damageText.text = $"DMG: {veterano.damage}";
+        defenseText.text = $"DEF: {veterano.defense * 100:F0}%";
+        agilityText.text = $"AGIL: {veterano.agility}";
+        luckText.text = $"SRT: {veterano.luck * 100:F0}%";
+        evasionText.text = $"EVA: {veterano.evasion * 100:F0}%";
+        staminaText.text = $"STM: {veterano.stamina}";
+        pushText.text = $"EMP: {veterano.push}";
+        critText.text = $"CRIT: {veterano.critMultiplier}x";
+    }
 
-        btnSlot2.GetComponentInChildren<TMP_Text>().text =
-            veterano.accessorySlot != null ? veterano.accessorySlot.itemName : "Accesorio";
+    void ActualizarSlot(Button button, string slotName, ItemData item)
+    {
+        if (button == null) return;
 
-        btnSlot3.GetComponentInChildren<TMP_Text>().text =
-            veterano.consumableSlot != null ? veterano.consumableSlot.itemName : "Consumible";
+        var text = button.GetComponentInChildren<TMP_Text>();
+        if (text != null)
+        {
+            text.text = item != null ? $"{slotName}\n{item.itemName}" : $"{slotName}\nVacio";
+            text.color = item != null ? Color.white : new Color(0.76f, 0.78f, 0.82f);
+            text.fontSize = item != null ? 21 : 20;
+            text.alignment = TextAlignmentOptions.Center;
+        }
+
+        var image = button.GetComponent<Image>();
+        if (image != null)
+            image.color = item != null ? new Color(0.12f, 0.18f, 0.24f, 0.96f) : new Color(0.08f, 0.09f, 0.11f, 0.82f);
+
+        var colors = button.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color(0.22f, 0.32f, 0.42f);
+        colors.pressedColor = new Color(0.08f, 0.14f, 0.2f);
+        colors.selectedColor = new Color(0.16f, 0.24f, 0.32f);
+        colors.disabledColor = new Color(0.18f, 0.18f, 0.18f);
+        button.colors = colors;
     }
 
     public void GoBack()
