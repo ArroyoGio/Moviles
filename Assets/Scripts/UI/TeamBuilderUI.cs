@@ -101,12 +101,16 @@ public class TeamBuilderUI : MonoBehaviour
         if (veterano == null || veterano.baseData == null) return;
 
         seleccionado = veterano;
+        PrepararVeterano(seleccionado);
         rival = CrearRivalAutomatico(seleccionado);
 
         if (rival != null)
         {
+            PrepararVeterano(rival);
             TeamManager.Instance.AsignarActivo(seleccionado, 0);
             TeamManager.Instance.AsignarActivo(rival, 1);
+            Debug.Log($"Local elegido: {seleccionado.baseData.characterName}");
+            Debug.Log($"Rival automatico: {rival.baseData.characterName}");
         }
         else
         {
@@ -118,13 +122,26 @@ public class TeamBuilderUI : MonoBehaviour
 
     VeteranData CrearRivalAutomatico(VeteranData jugador)
     {
+        List<VeteranData> candidatos = new List<VeteranData>();
+
         foreach (VeteranData veterano in misVeteranos)
         {
             if (veterano != null && veterano != jugador && veterano.baseData != null)
-                return veterano;
+                candidatos.Add(veterano);
         }
 
-        return null;
+        if (candidatos.Count == 0)
+            return null;
+
+        return candidatos[Random.Range(0, candidatos.Count)];
+    }
+
+    void PrepararVeterano(VeteranData veterano)
+    {
+        if (veterano == null || veterano.baseData == null) return;
+
+        EquipmentStateManager.GetOrCreate().RestoreEquipment(veterano);
+        veterano.RecalculateStatsFromBaseAndEquipment();
     }
 
     void RefrescarSlots()
