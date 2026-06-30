@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Luca
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
-  combatPrefab: {fileID: 0}
+  combatPrefab: {fileID: 1133771694791697922, guid: 05463bf9ff704d6c9b3a65629ffff19f, type: 3}
   animal: Mono Titi
   martialArt: Capoeira
   role: 4

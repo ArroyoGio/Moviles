@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02b7a4e053706b4459bfcbde5970c5a9, type: 3}
-  m_Name: VeteranData_Dot
+  m_Name: VeteranData_Denis
   m_EditorClassIdentifier: Assembly-CSharp::VeteranData
-  baseData: {fileID: 11400000, guid: a56fb7d3b4652cf418c0319d06597ecf, type: 2}
-  veteranId: 
-  life: 570
-  defense: 0.2
-  damage: 704
-  critMultiplier: 2.2
-  luck: 0.5
-  agility: 650
-  evasion: 0.2
-  push: 150
-  stamina: 700
-  passiveName: Instinto asesino
-  passiveEffect: "Rival bajo 20% vida \u2014 +15% Dano"
+  baseData: {fileID: 11400000, guid: 6b5076def5fbb5e4594582ab3406f22b, type: 2}
+  veteranId: Denis_001
+  life: 720
+  defense: 0.8
+  damage: 680
+  critMultiplier: 1.8
+  luck: 0.55
+  agility: 520
+  evasion: 0.25
+  push: 650
+  stamina: 620
+  passiveName: Golpe de suerte
+  passiveEffect: "Tras evadir \u2014 +20% prob. critico siguiente ataque"
   weaponSlot: {fileID: 0}
   protectionSlot: {fileID: 0}
   accessorySlot: {fileID: 0}

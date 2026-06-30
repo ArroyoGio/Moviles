@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Xiao
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
-  combatPrefab: {fileID: 0}
+  combatPrefab: {fileID: 1133771694791697922, guid: e9860cb7752e4172840c3ec9bbc97e37, type: 3}
   animal: Leon
   martialArt: Puno Borracho
   role: 4

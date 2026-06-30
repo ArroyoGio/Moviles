@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Rio
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
-  combatPrefab: {fileID: 0}
+  combatPrefab: {fileID: 1133771694791697922, guid: 1133d4f2d58f453597065d28864073e0, type: 3}
   animal: Rata Gris
   martialArt: Freestyle
   role: 3

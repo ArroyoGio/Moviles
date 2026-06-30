@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Denis
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
-  combatPrefab: {fileID: 0}
+  combatPrefab: {fileID: 1133771694791697922, guid: 1e57f85f1d8a47d5b78f77e2a5b6f60e, type: 3}
   animal: T-Rex
   martialArt: Taekwondo
   role: 0

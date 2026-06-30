@@ -1252,6 +1252,14 @@ MonoBehaviour:
   misVeteranos:
   - {fileID: 11400000, guid: c07e60aa55328dc449daea9e5080c8b9, type: 2}
   - {fileID: 11400000, guid: c946cc91a80e9544e833cc724c56b968, type: 2}
+  - {fileID: 11400000, guid: b32890e000f64293935fa72a6a3dab52, type: 2}
+  - {fileID: 11400000, guid: 6322fcfcd25f43bca728a863f6b3dbf7, type: 2}
+  - {fileID: 11400000, guid: 8959f377fbd842b0a5cf0d0e28adc778, type: 2}
+  - {fileID: 11400000, guid: 01d2b9c7be6d43bd8099dab871c8a2a2, type: 2}
+  - {fileID: 11400000, guid: 9433d0b5187d4f4c83a94feff237f803, type: 2}
+  - {fileID: 11400000, guid: 578f46d873d9438f9807516f8a94791c, type: 2}
+  - {fileID: 11400000, guid: aaabedacb46946b98015d25d7e0182d5, type: 2}
+  - {fileID: 11400000, guid: cab947b601244e6c8278d9b89654d7ee, type: 2}
   characterCardPrefab: {fileID: 111182510344529705, guid: 93e23ec8e6c8bb64290b42ff31d5bf5c, type: 3}
   contentParent: {fileID: 602048376}
 --- !u!4 &1560475893

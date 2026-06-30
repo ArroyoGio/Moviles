@@ -15,7 +15,7 @@ MonoBehaviour:
   characterName: Caio
   portrait: {fileID: 0}
   fullArt: {fileID: 0}
-  combatPrefab: {fileID: 0}
+  combatPrefab: {fileID: 1133771694791697922, guid: b15f0aac1d2943d2af368601ae825e3c, type: 3}
   animal: Anaconda
   martialArt: BJJ
   role: 2

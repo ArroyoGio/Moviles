@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02b7a4e053706b4459bfcbde5970c5a9, type: 3}
-  m_Name: VeteranData_Dot
+  m_Name: VeteranData_Rio
   m_EditorClassIdentifier: Assembly-CSharp::VeteranData
-  baseData: {fileID: 11400000, guid: a56fb7d3b4652cf418c0319d06597ecf, type: 2}
-  veteranId: 
-  life: 570
-  defense: 0.2
-  damage: 704
-  critMultiplier: 2.2
-  luck: 0.5
-  agility: 650
-  evasion: 0.2
-  push: 150
-  stamina: 700
-  passiveName: Instinto asesino
-  passiveEffect: "Rival bajo 20% vida \u2014 +15% Dano"
+  baseData: {fileID: 11400000, guid: 7a9253b5098af0a49b0997b66744e157, type: 2}
+  veteranId: Rio_001
+  life: 380
+  defense: 0.12
+  damage: 280
+  critMultiplier: 1.8
+  luck: 0.6
+  agility: 600
+  evasion: 0.5
+  push: 200
+  stamina: 550
+  passiveName: 'Golpe de suerte '
+  passiveEffect: Tras evadir un golpe, el siguiente ataque tiene +20% de probabilidad
   weaponSlot: {fileID: 0}
   protectionSlot: {fileID: 0}
   accessorySlot: {fileID: 0}

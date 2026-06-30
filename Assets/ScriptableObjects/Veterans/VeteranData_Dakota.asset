@@ -9,17 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b39137d47141f84491ed279892f2654, type: 3}
-  m_Name: Dakota
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterData
-  characterName: Dakota
-  portrait: {fileID: 0}
-  fullArt: {fileID: 0}
-  combatPrefab: {fileID: 1133771694791697922, guid: a548c245edd44fe6975407dc8d2d386e, type: 3}
-  animal: Bisonte
-  martialArt: Wrestling
-  role: 1
-  gender: 0
+  m_Script: {fileID: 11500000, guid: 02b7a4e053706b4459bfcbde5970c5a9, type: 3}
+  m_Name: VeteranData_Dakota
+  m_EditorClassIdentifier: Assembly-CSharp::VeteranData
+  baseData: {fileID: 11400000, guid: ae688103354aa5b4f90345d23545b8f2, type: 2}
+  veteranId: Dakota_001
   life: 850
   defense: 0.3
   damage: 450
@@ -29,8 +23,12 @@ MonoBehaviour:
   evasion: 0.15
   push: 750
   stamina: 700
-  attackRange: 1.2
-  ultiCondition: Un aliado baja del 25% de vida
-  ultiEffect: Carga hacia el rival, stun leve
   passiveName: Impacto brutal
   passiveEffect: "Golpes con Empuje \u2014 rival -10% Agilidad por 2 seg"
+  weaponSlot: {fileID: 0}
+  protectionSlot: {fileID: 0}
+  accessorySlot: {fileID: 0}
+  consumableSlot: {fileID: 0}
+  currentLife: 0
+  currentStamina: 0
+  isKO: 0
