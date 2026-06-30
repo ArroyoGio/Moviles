@@ -14,9 +14,14 @@ public class ItemInventoryUI : MonoBehaviour
     public PlayerInventory playerInventory;
 
     private RectTransform gridParent;
+    private Image detailIcon;
+    private TMP_Text counterText;
     private TMP_Text detailText;
     private ItemData.ItemSlot? currentFilter;
-    private readonly List<Button> filterButtons = new List<Button>();
+    private ItemData selectedItem;
+    private Image selectedCardBackground;
+    private Outline selectedCardOutline;
+    private readonly List<ItemData> visibleItems = new List<ItemData>();
 
     void Start()
     {
@@ -28,14 +33,33 @@ public class ItemInventoryUI : MonoBehaviour
 
     private void EnsureInventory()
     {
-        if (playerInventory != null) return;
+        if (playerInventory == null)
+        {
+#if UNITY_EDITOR
+            string[] inventoryGuids = AssetDatabase.FindAssets("t:PlayerInventory", new[] { "Assets/ScriptableObjects" });
+            if (inventoryGuids.Length > 0)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(inventoryGuids[0]);
+                playerInventory = AssetDatabase.LoadAssetAtPath<PlayerInventory>(path);
+            }
+#endif
+        }
+
+        PopulateInventoryWithAllKnownItems();
+    }
+
+    private void PopulateInventoryWithAllKnownItems()
+    {
+        if (playerInventory == null || playerInventory.itemsDisponibles == null) return;
 
 #if UNITY_EDITOR
-        string[] guids = AssetDatabase.FindAssets("t:PlayerInventory", new[] { "Assets/ScriptableObjects" });
-        if (guids.Length > 0)
+        string[] itemGuids = AssetDatabase.FindAssets("t:ItemData", new[] { "Assets/ScriptableObjects/Items" });
+        foreach (string guid in itemGuids)
         {
-            string path = AssetDatabase.GUIDToAssetPath(guids[0]);
-            playerInventory = AssetDatabase.LoadAssetAtPath<PlayerInventory>(path);
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            ItemData item = AssetDatabase.LoadAssetAtPath<ItemData>(path);
+            if (item != null && !playerInventory.itemsDisponibles.Contains(item))
+                playerInventory.itemsDisponibles.Add(item);
         }
 #endif
     }
@@ -63,9 +87,12 @@ public class ItemInventoryUI : MonoBehaviour
         var title = CreateText("Title", root, "OBJETOS", 44, TextAlignmentOptions.Center, Color.white);
         SetRect(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0, -28), new Vector2(420, 64), new Vector2(0.5f, 1f));
 
-        var backButton = CreateButton("BackButton", root, "← Volver", new Vector2(24, -24), new Vector2(0, 1), new Vector2(110, 36));
+        counterText = CreateText("CounterText", root, "Objetos: 0", 24, TextAlignmentOptions.Right, new Color(0.82f, 0.86f, 0.9f));
+        SetRect(counterText.rectTransform, new Vector2(1, 1), new Vector2(1, 1), new Vector2(-32, -36), new Vector2(260, 36), new Vector2(1, 1));
+
+        var backButton = CreateButton("BackButton", root, "< Volver", new Vector2(28, -28), new Vector2(0, 1), new Vector2(130, 44));
         var backText = backButton.GetComponentInChildren<TMP_Text>();
-        if (backText != null) backText.fontSize = 17;
+        if (backText != null) backText.fontSize = 18;
         backButton.onClick.AddListener(() => SceneManager.LoadScene("MainHub"));
 
         var filterPanel = CreatePanel("Filters", root, Vector2.zero, new Vector2(0, 1), new Vector2(1, 1), new Color(0f, 0f, 0f, 0f));
@@ -91,11 +118,18 @@ public class ItemInventoryUI : MonoBehaviour
         SetRect(detailPanel, new Vector2(0.68f, 0), new Vector2(1, 1), new Vector2(16, -170), new Vector2(-24, -34), new Vector2(0, 1));
 
         BuildItemGrid(listPanel);
+        BuildDetailPanel(detailPanel);
+    }
 
-        detailText = CreateText("DetailText", detailPanel, "Selecciona un objeto", 26, TextAlignmentOptions.TopLeft, Color.white);
-        SetRect(detailText.rectTransform, Vector2.zero, Vector2.one, new Vector2(24, -24), new Vector2(-48, -48), new Vector2(0, 1));
+    private void BuildDetailPanel(RectTransform detailPanel)
+    {
+        detailIcon = CreateItemIcon("DetailIcon", detailPanel, 118);
+        SetRect(detailIcon.rectTransform, new Vector2(0.5f, 1), new Vector2(0.5f, 1), new Vector2(0, -24), new Vector2(118, 118), new Vector2(0.5f, 1));
+
+        detailText = CreateText("DetailText", detailPanel, "Selecciona un objeto", 16, TextAlignmentOptions.TopLeft, Color.white);
+        SetRect(detailText.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, new Vector2(0, 1));
         detailText.rectTransform.offsetMin = new Vector2(24, 24);
-        detailText.rectTransform.offsetMax = new Vector2(-24, -24);
+        detailText.rectTransform.offsetMax = new Vector2(-24, -168);
     }
 
     private void BuildItemGrid(RectTransform parent)
@@ -111,25 +145,31 @@ public class ItemInventoryUI : MonoBehaviour
         scroll.horizontal = false;
         scroll.vertical = true;
 
-        var viewport = CreatePanel("Viewport", scrollRect, Vector2.zero, Vector2.zero, Vector2.one, new Color(0f, 0f, 0f, 0f));
+        var viewport = CreatePanel("Viewport", scrollRect, Vector2.zero, Vector2.zero, Vector2.one, new Color(0.06f, 0.07f, 0.09f, 1f));
         viewport.offsetMin = Vector2.zero;
         viewport.offsetMax = Vector2.zero;
-        viewport.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+        viewport.gameObject.AddComponent<RectMask2D>();
         scroll.viewport = viewport;
 
         var content = new GameObject("Content");
         content.transform.SetParent(viewport, false);
         gridParent = content.AddComponent<RectTransform>();
-        SetRect(gridParent, new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero, new Vector2(0.5f, 1));
+        SetRect(gridParent, new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, Vector2.zero, new Vector2(0, 1));
+        gridParent.offsetMin = Vector2.zero;
+        gridParent.offsetMax = Vector2.zero;
 
         var grid = content.AddComponent<GridLayoutGroup>();
-        grid.padding = new RectOffset(12, 12, 12, 12);
-        grid.spacing = new Vector2(12, 12);
-        grid.cellSize = new Vector2(250, 140);
+        grid.padding = new RectOffset(16, 16, 16, 16);
+        grid.spacing = new Vector2(36.1f, 37f);
+        grid.cellSize = new Vector2(411f, 220.7f);
+        grid.startCorner = GridLayoutGroup.Corner.UpperLeft;
+        grid.startAxis = GridLayoutGroup.Axis.Horizontal;
+        grid.childAlignment = TextAnchor.UpperLeft;
         grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         grid.constraintCount = 3;
 
         var fitter = content.AddComponent<ContentSizeFitter>();
+        fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
         fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         scroll.content = gridParent;
     }
@@ -142,7 +182,6 @@ public class ItemInventoryUI : MonoBehaviour
             currentFilter = filter;
             RefreshItems();
         });
-        filterButtons.Add(button);
     }
 
     private void RefreshItems()
@@ -152,9 +191,12 @@ public class ItemInventoryUI : MonoBehaviour
         foreach (Transform child in gridParent)
             Destroy(child.gameObject);
 
+        visibleItems.Clear();
+
         if (playerInventory == null || playerInventory.itemsDisponibles == null || playerInventory.itemsDisponibles.Count == 0)
         {
             CreateEmptyCard("No hay objetos disponibles");
+            UpdateCounter();
             return;
         }
 
@@ -162,26 +204,58 @@ public class ItemInventoryUI : MonoBehaviour
         {
             if (item == null) continue;
             if (currentFilter.HasValue && item.slot != currentFilter.Value) continue;
+
+            visibleItems.Add(item);
             CreateItemCard(item);
         }
+
+        if (visibleItems.Count == 0)
+            CreateEmptyCard("No hay objetos en esta categoria");
+
+        UpdateCounter();
     }
 
     private void CreateItemCard(ItemData item)
     {
         var button = CreateButton("ItemCard", gridParent, "", Vector2.zero, Vector2.zero, Vector2.zero);
-        var image = button.GetComponent<Image>();
-        if (image != null)
-            image.color = GetCardColor(item.rarity);
+        button.transform.SetAsLastSibling();
 
-        var text = button.GetComponentInChildren<TMP_Text>();
-        if (text != null)
+        var background = button.GetComponent<Image>();
+        if (background != null)
+            background.color = selectedItem == item ? GetSelectedCardColor() : GetCardColor(item.rarity);
+
+        var outline = button.gameObject.AddComponent<Outline>();
+        outline.effectColor = new Color(0.35f, 0.72f, 1f, 1f);
+        outline.effectDistance = new Vector2(3, -3);
+        outline.enabled = selectedItem == item;
+
+        var rarityBar = CreatePanel("RarityBar", button.transform, Vector2.zero, new Vector2(0, 1), new Vector2(1, 1), GetRarityColor(item.rarity));
+        SetRect(rarityBar, new Vector2(0, 1), new Vector2(1, 1), Vector2.zero, new Vector2(0, 6), new Vector2(0.5f, 1));
+        rarityBar.offsetMin = new Vector2(0, -6);
+        rarityBar.offsetMax = Vector2.zero;
+
+        var icon = CreateItemIcon("Icon", button.transform, 62);
+        SetRect(icon.rectTransform, new Vector2(0, 0.5f), new Vector2(0, 0.5f), new Vector2(46, 0), new Vector2(62, 62), new Vector2(0.5f, 0.5f));
+        SetIconSprite(icon, item);
+
+        var nameText = button.GetComponentInChildren<TMP_Text>();
+        if (nameText != null)
         {
-            text.fontSize = 19;
-            text.alignment = TextAlignmentOptions.Center;
-            text.text = $"{item.itemName}\n{item.rarity} · {GetSlotLabel(item.slot)}\n{GetBonusSummary(item)}";
+            nameText.fontSize = 19;
+            nameText.color = Color.white;
+            nameText.alignment = TextAlignmentOptions.Left;
+            nameText.textWrappingMode = TextWrappingModes.Normal;
+            nameText.text = item.itemName;
+            nameText.rectTransform.offsetMin = new Vector2(86, 44);
+            nameText.rectTransform.offsetMax = new Vector2(-10, -16);
         }
 
-        button.onClick.AddListener(() => ShowItemDetail(item));
+        var rarityText = CreateText("RarityText", button.transform, item.rarity.ToString(), 15, TextAlignmentOptions.Left, GetRarityColor(item.rarity));
+        SetRect(rarityText.rectTransform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, new Vector2(0.5f, 0.5f));
+        rarityText.rectTransform.offsetMin = new Vector2(86, 18);
+        rarityText.rectTransform.offsetMax = new Vector2(-10, -74);
+
+        button.onClick.AddListener(() => SelectItem(item, background, outline));
     }
 
     private void CreateEmptyCard(string message)
@@ -196,12 +270,43 @@ public class ItemInventoryUI : MonoBehaviour
     {
         if (detailText == null || item == null) return;
 
+        SetIconSprite(detailIcon, item);
+        if (detailIcon != null)
+            detailIcon.color = item.icon != null ? Color.white : GetRarityColor(item.rarity);
+
         detailText.text =
-            $"{item.itemName}\n\n" +
-            $"Rareza: {item.rarity}\n" +
-            $"Tipo: {GetSlotLabel(item.slot)}\n\n" +
-            $"{GetDescription(item)}\n\n" +
-            $"Bonos:\n{GetBonusLines(item)}";
+            $"<size=22><b>{item.itemName}</b></size>\n\n" +
+            $"<size=15><color=#{ColorUtility.ToHtmlStringRGB(GetRarityColor(item.rarity))}>Rareza: {item.rarity}</color></size>\n" +
+            $"<size=15>Tipo: {item.slot}</size>\n\n" +
+            $"<size=16>{GetDescription(item)}</size>\n\n" +
+            $"<size=16><b>Bonos:</b>\n{GetBonusLines(item)}</size>";
+    }
+
+    private void SelectItem(ItemData item, Image cardBackground, Outline cardOutline)
+    {
+        if (selectedCardBackground != null && selectedItem != null)
+            selectedCardBackground.color = GetCardColor(selectedItem.rarity);
+
+        if (selectedCardOutline != null)
+            selectedCardOutline.enabled = false;
+
+        selectedItem = item;
+        selectedCardBackground = cardBackground;
+        selectedCardOutline = cardOutline;
+
+        if (selectedCardBackground != null)
+            selectedCardBackground.color = GetSelectedCardColor();
+
+        if (selectedCardOutline != null)
+            selectedCardOutline.enabled = true;
+
+        ShowItemDetail(item);
+    }
+
+    private void UpdateCounter()
+    {
+        if (counterText != null)
+            counterText.text = $"Objetos: {visibleItems.Count}";
     }
 
     private string GetDescription(ItemData item)
@@ -213,12 +318,6 @@ public class ItemInventoryUI : MonoBehaviour
             return item.efectoTexto;
 
         return "Objeto disponible para equipamiento.";
-    }
-
-    private string GetBonusSummary(ItemData item)
-    {
-        string summary = GetBonusLines(item).Replace("\n", " · ");
-        return string.IsNullOrEmpty(summary) ? "Sin bonus directo" : summary;
     }
 
     private string GetBonusLines(ItemData item)
@@ -233,29 +332,55 @@ public class ItemInventoryUI : MonoBehaviour
         if (item.bonusCrit != 0) lines.Add($"+{item.bonusCrit * 100f:F0}% SRT");
         if (!string.IsNullOrWhiteSpace(item.eliteEffect)) lines.Add(item.eliteEffect);
         if (item.slot == ItemData.ItemSlot.Consumable && !string.IsNullOrWhiteSpace(item.condicion)) lines.Add(item.condicion);
-        return string.Join("\n", lines);
-    }
 
-    private string GetSlotLabel(ItemData.ItemSlot slot)
-    {
-        switch (slot)
-        {
-            case ItemData.ItemSlot.Weapon: return "Arma";
-            case ItemData.ItemSlot.Protection: return "Proteccion";
-            case ItemData.ItemSlot.Accessory: return "Accesorio";
-            case ItemData.ItemSlot.Consumable: return "Consumible";
-            default: return slot.ToString();
-        }
+        return lines.Count == 0 ? "Sin bonus directo" : string.Join("\n", lines);
     }
 
     private Color GetCardColor(ItemData.Rarity rarity)
     {
         switch (rarity)
         {
-            case ItemData.Rarity.Sport: return new Color(0.11f, 0.2f, 0.3f, 1f);
-            case ItemData.Rarity.Elite: return new Color(0.22f, 0.16f, 0.08f, 1f);
-            default: return new Color(0.13f, 0.15f, 0.18f, 1f);
+            case ItemData.Rarity.Sport: return new Color(0.12f, 0.22f, 0.32f, 1f);
+            case ItemData.Rarity.Elite: return new Color(0.25f, 0.18f, 0.09f, 1f);
+            default: return new Color(0.18f, 0.22f, 0.28f, 1f);
         }
+    }
+
+    private Color GetSelectedCardColor()
+    {
+        return new Color(0.2f, 0.34f, 0.48f, 1f);
+    }
+
+    private Color GetRarityColor(ItemData.Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case ItemData.Rarity.Sport: return new Color(0.35f, 0.72f, 1f, 1f);
+            case ItemData.Rarity.Elite: return new Color(1f, 0.72f, 0.24f, 1f);
+            default: return new Color(0.78f, 0.82f, 0.88f, 1f);
+        }
+    }
+
+    private Image CreateItemIcon(string name, Transform parent, float size)
+    {
+        var go = new GameObject(name);
+        go.transform.SetParent(parent, false);
+        var rect = go.AddComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(size, size);
+        var image = go.AddComponent<Image>();
+        image.color = new Color(0.28f, 0.32f, 0.38f, 1f);
+        image.preserveAspect = true;
+        image.raycastTarget = false;
+        return image;
+    }
+
+    private void SetIconSprite(Image image, ItemData item)
+    {
+        if (image == null || item == null) return;
+
+        image.sprite = item.icon;
+        image.preserveAspect = true;
+        image.color = item.icon != null ? Color.white : GetRarityColor(item.rarity);
     }
 
     private void EnsureEventSystem()

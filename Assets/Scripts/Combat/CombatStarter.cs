@@ -55,6 +55,9 @@ public class CombatStarter : MonoBehaviour
 
         hud.Setup(team.activos[0], team.activos[1]);
 
+        if (GetComponent<CombatRewardsPanel>() == null)
+            gameObject.AddComponent<CombatRewardsPanel>();
+
         CombatSystem.Instance.StartMatch1v1(
             team.activos[0],
             team.activos[1]);
