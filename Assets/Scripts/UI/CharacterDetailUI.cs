@@ -57,6 +57,7 @@ public class CharacterDetailUI : MonoBehaviour
             return;
         }
 
+        TrainingStateManager.GetOrCreate().RestoreTraining(veterano);
         EquipmentStateManager.GetOrCreate().RestoreEquipment(veterano);
         veterano.RecalculateStatsFromBaseAndEquipment();
         LoadData();
@@ -105,6 +106,7 @@ public class CharacterDetailUI : MonoBehaviour
 
     void RefrescarSlots()
     {
+        TrainingStateManager.GetOrCreate().RestoreTraining(veterano);
         veterano.RecalculateStatsFromBaseAndEquipment();
         RefrescarStats();
         ActualizarSlot(btnSlot0, "Weapon", veterano.weaponSlot);

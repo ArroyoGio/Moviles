@@ -125,6 +125,8 @@ public class ArenaManager : MonoBehaviour
             yield break;
         }
 
+        TrainingStateManager.GetOrCreate().RestoreTraining(team.activos[0]);
+        TrainingStateManager.GetOrCreate().RestoreTraining(team.activos[1]);
         EquipmentStateManager.GetOrCreate().RestoreEquipment(team.activos[0]);
         EquipmentStateManager.GetOrCreate().RestoreEquipment(team.activos[1]);
 

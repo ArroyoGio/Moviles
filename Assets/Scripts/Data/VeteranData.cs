@@ -18,6 +18,17 @@ public class VeteranData : ScriptableObject
     public int push;
     public int stamina;
 
+    [Header("Bonus de entrenamiento")]
+    public int trainingLife;
+    public float trainingDefense;
+    public int trainingDamage;
+    public float trainingCritMultiplier;
+    public float trainingLuck;
+    public int trainingAgility;
+    public float trainingEvasion;
+    public int trainingPush;
+    public int trainingStamina;
+
     [Header("Pasiva desbloqueada por entrenamiento")]
     public string passiveName;
     [TextArea] public string passiveEffect;
@@ -37,15 +48,15 @@ public class VeteranData : ScriptableObject
     public void InitFromBase()
     {
         if (baseData == null) return;
-        life = baseData.life;
-        defense = baseData.defense;
-        damage = baseData.damage;
-        critMultiplier = baseData.critMultiplier;
-        luck = baseData.luck;
-        agility = baseData.agility;
-        evasion = baseData.evasion;
-        push = baseData.push;
-        stamina = baseData.stamina;
+        life = baseData.life + trainingLife;
+        defense = baseData.defense + trainingDefense;
+        damage = baseData.damage + trainingDamage;
+        critMultiplier = baseData.critMultiplier + trainingCritMultiplier;
+        luck = baseData.luck + trainingLuck;
+        agility = baseData.agility + trainingAgility;
+        evasion = baseData.evasion + trainingEvasion;
+        push = baseData.push + trainingPush;
+        stamina = baseData.stamina + trainingStamina;
         passiveName = baseData.passiveName;
         passiveEffect = baseData.passiveEffect;
     }

@@ -15,8 +15,14 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterInventory.unity
     guid: cc8dece7bbb3dab4f93da809b599417d
   - enabled: 1
+    path: Assets/Scenes/ItemInventory.unity
+    guid: 0fd4484f7e4b4e45bc98f496fa6fa201
+  - enabled: 1
     path: Assets/Scenes/CharacterDetail.unity
     guid: 9aaea2fb52bc1aa46a5c58d2cca7c4a1
+  - enabled: 1
+    path: Assets/Scenes/Training.unity
+    guid: 4fa83217dc9e465aa4fba0fd6e387af2
   - enabled: 1
     path: Assets/Scenes/TeamBuilder.unity
     guid: d603ba77beaac7a488efcda4d7b4ecdc
