@@ -125,6 +125,12 @@ public class ArenaManager : MonoBehaviour
             yield break;
         }
 
+        EquipmentStateManager.GetOrCreate().RestoreEquipment(team.activos[0]);
+        EquipmentStateManager.GetOrCreate().RestoreEquipment(team.activos[1]);
+
+        team.activos[0].RecalculateStatsFromBaseAndEquipment();
+        team.activos[1].RecalculateStatsFromBaseAndEquipment();
+
         CombatSystem.Instance.StartMatch1v1(team.activos[0], team.activos[1], false);
 
         StartRound(nextRound);

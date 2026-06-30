@@ -57,6 +57,7 @@ public class CharacterDetailUI : MonoBehaviour
             return;
         }
 
+        EquipmentStateManager.GetOrCreate().RestoreEquipment(veterano);
         veterano.RecalculateStatsFromBaseAndEquipment();
         LoadData();
         InicializarSlots();

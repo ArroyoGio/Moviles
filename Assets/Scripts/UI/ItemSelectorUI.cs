@@ -117,6 +117,8 @@ public class ItemSelectorUI : MonoBehaviour
                 break;
         }
 
+        EquipmentStateManager.GetOrCreate().SaveEquipment(veteranoActual);
+
         Debug.Log("CALLBACK: " + onEquipado);
 
         onEquipado?.Invoke();

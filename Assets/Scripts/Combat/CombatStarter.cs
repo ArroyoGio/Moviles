@@ -36,6 +36,15 @@ public class CombatStarter : MonoBehaviour
             return;
         }
 
+        EquipmentStateManager.GetOrCreate().RestoreEquipment(team.activos[0]);
+        EquipmentStateManager.GetOrCreate().RestoreEquipment(team.activos[1]);
+
+        team.activos[0].RecalculateStatsFromBaseAndEquipment();
+        team.activos[1].RecalculateStatsFromBaseAndEquipment();
+
+        LogFinalStats("Local", team.activos[0]);
+        LogFinalStats("Rival", team.activos[1]);
+
         // activos[0] = jugador local (lado 1)
         // activos[1] = rival IA (lado -1)
         var hud = GetComponent<CombatHUD>();
@@ -47,5 +56,15 @@ public class CombatStarter : MonoBehaviour
         CombatSystem.Instance.StartMatch1v1(
             team.activos[0],
             team.activos[1]);
+    }
+
+    private void LogFinalStats(string label, VeteranData veteran)
+    {
+        if (veteran == null || veteran.baseData == null) return;
+
+        Debug.Log(
+            $"CombatStarter {label}: {veteran.baseData.characterName} | " +
+            $"HP {veteran.life} | Damage {veteran.damage} | Defense {veteran.defense:P0} | " +
+            $"Agility {veteran.agility} | Luck {veteran.luck:P0} | Stamina {veteran.stamina}");
     }
 }
